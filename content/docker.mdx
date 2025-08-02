@@ -1,0 +1,125 @@
+---
+title: "Các lệnh Docker hữu ích mà ít người dùng tới"
+publishedAt: "2025-07-21"
+summary: "Khám phá các lệnh Docker ít được biết đến nhưng cực kỳ hữu ích cho việc quản lý và debug container."
+image: "/modkey.png"
+---
+
+Khi mới dùng Docker, ai cũng quen thuộc với mấy lệnh như `docker run` hay `docker build`. Nhưng có thể bạn chưa biết còn cả một kho tàng các lệnh khác ít người dùng tới nhưng lại cực kỳ hữu ích trong một vài trường hợp oái oăm. Hôm nay tôi muốn chia sẻ lại một số lệnh như vậy, bạn xem thử biết đâu sẽ có lúc hữu ích.
+
+![Docker Commands Overview](/docker-commands.png)
+
+## 1. `docker system df`: Phân tích chi tiết dung lượng đĩa
+Lệnh này cho bạn một cái nhìn tổng quan về dung lượng đĩa mà các đối tượng của Docker đang chiếm dụng, từ image, container, volume cho đến build cache. Rất quan trọng để quản lý tài nguyên hệ thống.
+
+```bash
+docker system df
+```
+
+![Docker System DF Output](/docker-system-df.png)
+
+## 2. `docker inspect`: Soi sâu vào metadata của đối tượng
+Trả về JSON chứa toàn bộ thông tin như cấu hình mạng, biến môi trường, trạng thái lúc chạy...
+
+```bash
+docker inspect [OPTIONS] NAME|ID
+```
+
+![Docker Inspect Example](/docker-inspect.png)
+
+## 3. `docker history`: Truy vết lịch sử các lớp của image
+Dùng để tối ưu Dockerfile bằng cách xem các layer đang làm phình to image.
+
+```bash
+docker history --no-trunc --human nginx:alpine
+```
+
+![Docker History Layers](/docker-history.png)
+
+## 4. `docker export`: Xuất hệ thống file của container
+Xuất container ra file `.tar`, không bao gồm metadata hay lịch sử.
+
+```bash
+docker export -o my-container.tar my-container
+cat my-container.tar | docker import - my-new-image:latest
+```
+
+## 5. `docker events`: Giám sát các hoạt động của Docker
+Theo dõi sự kiện theo thời gian thực từ Docker daemon.
+
+```bash
+docker events --filter 'type=container' --filter 'event=start' --since '2025-05-04' --format '{{.Time}} {{.Type}} {{.Actor.Attributes.name}} {{.Action}}' | \
+awk 'BEGIN { printf "%-25s %-10s %-30s %-10s\n", "TIME", "TYPE", "CONTAINER", "ACTION"; print "--------------------------------------------------------------------------------------------"; }
+     { printf "%-25s %-10s %-30s %-10s\n", $1, $2, $3, $4 }'
+```
+
+## 6. `docker top`: Xem các tiến trình trong container
+Xem nhanh các tiến trình mà không cần `exec` vào.
+
+```bash
+docker top my-container aux
+```
+
+## 7. `docker diff`: Kiểm tra thay đổi trên hệ thống file
+Liệt kê các thay đổi (thêm/sửa/xoá) kể từ lúc container được tạo.
+
+```bash
+docker diff my-container
+```
+
+## 8. `docker trust`: Quản lý việc ký và xác thực image
+Giúp đảm bảo image có nguồn gốc xác thực, dùng trong môi trường bảo mật cao.
+
+```bash
+docker trust inspect nginx:latest
+```
+
+## 9. `docker manifest`: Quản lý image đa kiến trúc
+Đảm bảo image chạy được trên nhiều nền tảng (x86, ARM...).
+
+```bash
+docker manifest inspect --verbose nginx:latest
+```
+
+## 10. `docker pause`: Tạm dừng tiến trình trong container
+Đóng băng toàn bộ tiến trình mà không xoá container.
+
+```bash
+docker pause my-container
+docker unpause my-container
+```
+
+## 11. `docker save`: Xuất image ra file `.tar`
+Lưu toàn bộ image (bao gồm metadata/lịch sử) để chuyển máy.
+
+```bash
+docker save -o my-image.tar nginx:latest
+docker load -i my-image.tar
+```
+
+## 12. `docker stats`: Theo dõi tài nguyên container
+Giám sát CPU, RAM, Network, I/O theo thời gian thực.
+
+```bash
+docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}" my-container
+```
+
+![Docker Stats Monitoring](/docker-stats.png)
+
+## 13. `docker volume inspect`: Kiểm tra metadata volume
+Dùng khi gặp sự cố liên quan đến volume: sai mount point, quyền truy cập...
+
+```bash
+docker volume inspect my-volume
+```
+
+## 14. `docker buildx`: Build nâng cao
+Build image đa kiến trúc, tối ưu cache, dùng builder từ xa...
+
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 -t my-app:latest --push .
+```
+
+---
+
+> Những lệnh này tuy ít phổ biến nhưng sẽ rất **đắc lực khi xử lý các tình huống phức tạp**. Biết đến chúng là mở thêm cánh cửa để hiểu sâu hơn về Docker và xử lý sự cố hiệu quả hơn.
