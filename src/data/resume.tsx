@@ -4,7 +4,7 @@ import { HomeIcon, NotebookIcon } from "lucide-react";
 export const DATA = {
   name: "Phát",
   initials: "NDTP",
-  url: "https://dillion.io", // TODO: change to my website
+  url: "https://your-portfolio-website.com", // TODO: change to your website
   location: "18/95 Alexander De Rhodes, Tổ 8 Khu phố 6, Linh Trung, Thủ Đức",
   locationLink: "https://www.google.com/maps/place/T%E1%BA%A1p+h%C3%B3a+Anh+Trung/@10.8683787,106.7955203,1209m/data=!3m2!1e3!4b1!4m6!3m5!1s0x317527c5f433a061:0x1aa57b4c411b1ce0!8m2!3d10.8683787!4d106.7980952!16s%2Fg%2F11q85h8d24?hl=vi&entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D",
   description:
