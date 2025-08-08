@@ -6,10 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio",
+    "migrate:content": "tsx scripts/migrate-content.ts",
+    "content:stats": "tsx scripts/content-manager.ts stats",
+    "content:list": "tsx scripts/content-manager.ts list",
+    "content:create": "tsx scripts/content-manager.ts create",
+    "content:validate": "tsx scripts/content-manager.ts validate",
+    "content:search": "tsx scripts/content-manager.ts search",
+    "content:sitemap": "tsx scripts/content-manager.ts sitemap"
   },
   "dependencies": {
-    "@radix-ui/react-avatar": "^1.1.6", 
+    "@prisma/client": "^6.13.0",
+    "@radix-ui/react-avatar": "^1.1.6",
     "@radix-ui/react-icons": "^1.3.2",
     "@radix-ui/react-separator": "^1.1.4",
     "@radix-ui/react-slot": "^1.2.0",
@@ -23,6 +35,7 @@
     "motion": "^12.7.4",
     "next": "14.2.4",
     "next-themes": "^0.3.0",
+    "prisma": "^6.13.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^9.1.0",
@@ -45,6 +58,7 @@
     "eslint-config-next": "14.2.4",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   }
 }
