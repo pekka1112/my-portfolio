@@ -3,11 +3,12 @@
 import Image from "next/image";
 import { MapPin, Calendar, Clock } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 export default function EventsPage() {
 
-    const eventDate = new Date("2025-10-21T07:45:00");
+    const eventDate = useMemo(() => new Date("2025-10-21T07:45:00"), []);
+
     const [countdown, setCountdown] = useState("");
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export default function EventsPage() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [eventDate]);
 
   return (
     <div className="min-h-screen py-0 flex flex-col items-center">
