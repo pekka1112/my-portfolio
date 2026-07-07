@@ -41,6 +41,7 @@ export const ResumeCard = ({
   return (
     <Link
       href={href || "#"}
+      target={href ? "_blank" : undefined}
       className="block cursor-pointer"
       onClick={handleClick}
     >
@@ -68,7 +69,7 @@ export const ResumeCard = ({
                         className="align-middle text-xs"
                         key={index}
                       >
-                        {badge}
+                        {badge} 
                       </Badge>
                     ))}
                   </span>

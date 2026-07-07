@@ -4,6 +4,8 @@ import Image from "next/image";
 import { MapPin, Calendar, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState, useMemo } from "react";
+import AdPopup from "@/components/ad-popup";
+
 
 export default function EventsPage() {
 
@@ -37,6 +39,8 @@ export default function EventsPage() {
 
   return (
     <div className="min-h-screen py-0 flex flex-col items-center">
+      {/* Popup quảng cáo hiển thị khi load web */}
+            <AdPopup />
       <h1 className="text-3xl font-bold mb-5 text-center">
         🎓 Lễ Tốt Nghiệp của Tôi
       </h1>

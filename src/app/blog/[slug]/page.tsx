@@ -1,9 +1,13 @@
 import { getBlogPosts, getPost } from "@/data/blog";
 import { DATA } from "@/data/resume";
-import { formatDate } from "@/lib/utils";
+import { formatDate, calculateReadingTime } from "@/lib/utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft } from "lucide-react";
 
 /**
  * Tạo static params cho từng bài blog (Next.js SSG)
@@ -74,13 +78,14 @@ export default async function Blog({
     notFound();
   }
 
-  const { title, publishedAt, summary, image } = post.metadata;
+  const { title, publishedAt, summary, image, tags = [] } = post.metadata;
+  const readingTime = calculateReadingTime(post.source);
   const ogImage = image
     ? `${DATA.url}${image}`
     : `${DATA.url}/og?title=${encodeURIComponent(title)}`;
 
   return (
-    <section id="blog">
+    <section id="blog" className="w-full">
       {/* ✅ Cấu trúc dữ liệu SEO */}
       <script
         type="application/ld+json"
@@ -103,25 +108,83 @@ export default async function Blog({
         }}
       />
 
-      {/* ✅ Tiêu đề */}
-      <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
-        {title}
-      </h1>
-
-      {/* ✅ Ngày đăng */}
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-        <Suspense fallback={<p className="h-5" />}>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            {formatDate(publishedAt)}
-          </p>
-        </Suspense>
+      <div className="mb-8">
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          Back to blog
+        </Link>
       </div>
 
-      {/* ✅ Nội dung bài viết */}
+      {/* ✅ Featured Image */}
+      {image && (
+        <div className="relative h-56 sm:h-80 w-full rounded-lg overflow-hidden mb-8 bg-neutral-100 dark:bg-neutral-900">
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover"
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
+          />
+        </div>
+      )}
+
+      {/* ✅ Header */}
+      <div className="max-w-2xl">
+        {/* Title */}
+        <h1 className="font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight mb-4 leading-tight">
+          {title}
+        </h1>
+
+        {/* Summary */}
+        <p className="text-base sm:text-lg text-neutral-700 dark:text-neutral-300 mb-6">
+          {summary}
+        </p>
+
+        {/* Meta Info */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-6 pb-6 border-b border-neutral-200 dark:border-neutral-800">
+          <Suspense fallback={<p className="h-5 w-24 bg-neutral-200 dark:bg-neutral-800 rounded" />}>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              {formatDate(publishedAt)}
+            </p>
+          </Suspense>
+          <span className="hidden sm:inline text-neutral-300 dark:text-neutral-700">•</span>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+            {readingTime} min read
+          </p>
+          {tags.length > 0 && (
+            <>
+              <span className="hidden sm:inline text-neutral-300 dark:text-neutral-700">•</span>
+              <div className="flex flex-wrap gap-2">
+                {tags.slice(0, 3).map((tag) => (
+                  <Badge key={tag} variant="outline" className="text-xs">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* ✅ Content */}
       <article
-        className="prose dark:prose-invert"
+        className="prose dark:prose-invert max-w-2xl prose-pre:bg-neutral-100 dark:prose-pre:bg-neutral-900 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:underline hover:prose-a:no-underline"
         dangerouslySetInnerHTML={{ __html: post.source }}
       />
+
+      {/* ✅ Footer */}
+      <div className="max-w-2xl mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+        >
+          ← Back to all posts
+        </Link>
+      </div>
     </section>
   );
 }

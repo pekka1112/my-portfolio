@@ -1,70 +1,52 @@
-import fs from "fs";
-import matter from "gray-matter";
-import path from "path";
-import rehypePrettyCode from "rehype-pretty-code";
-import rehypeStringify from "rehype-stringify";
-import remarkGfm from "remark-gfm";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import { unified } from "unified";
-
-type Metadata = {
-  title: string;
-  publishedAt: string;
-  summary: string;
-  image?: string;
-};
-
-function getMDXFiles(dir: string) {
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
-}
-
-export async function markdownToHTML(markdown: string) {
-  const p = await unified()
-    .use(remarkParse)
-    .use(remarkGfm)
-    .use(remarkRehype)
-    .use(rehypePrettyCode, {
-      // https://rehype-pretty.pages.dev/#usage
-      theme: {
-        light: "min-light",
-        dark: "min-dark",
-      },
-      keepBackground: false,
-    })
-    .use(rehypeStringify)
-    .process(markdown);
-
-  return p.toString();
-}
+import { prisma } from "@/lib/prisma";
 
 export async function getPost(slug: string) {
-  const filePath = path.join("content", `${slug}.mdx`);
-  let source = fs.readFileSync(filePath, "utf-8");
-  const { content: rawContent, data: metadata } = matter(source);
-  const content = await markdownToHTML(rawContent);
-  return {
-    source: content,
-    metadata,
-    slug,
-  };
-}
+  try {
+    const post = await prisma.post.findUnique({
+      where: { slug },
+    });
 
-async function getAllPosts(dir: string) {
-  let mdxFiles = getMDXFiles(dir);
-  return Promise.all(
-    mdxFiles.map(async (file) => {
-      let slug = path.basename(file, path.extname(file));
-      let { metadata, source } = await getPost(slug);
-      return {
-        metadata,
-        slug,
-        source,
-      };
-    }),
-  );
+    if (!post) {
+      return null;
+    }
+
+    return {
+      source: post.content,
+      metadata: {
+        title: post.title,
+        publishedAt: post.publishedAt.toISOString(),
+        summary: post.summary,
+        image: post.image,
+        tags: post.tags,
+      },
+      slug: post.slug,
+    };
+  } catch (error) {
+    console.error(`Error fetching post ${slug}:`, error);
+    return null;
+  }
 }
 
 export async function getBlogPosts() {
-  return getAllPosts(path.join(process.cwd(), "content"));
+  try {
+    const posts = await prisma.post.findMany({
+      where: { published: true },
+      orderBy: { publishedAt: "desc" },
+    });
+
+    return posts.map((post) => ({
+      metadata: {
+        title: post.title,
+        publishedAt: post.publishedAt.toISOString(),
+        summary: post.summary,
+        image: post.image,
+        tags: post.tags,
+      },
+      slug: post.slug,
+      source: post.content,
+    }));
+  } catch (error) {
+    console.error("Error fetching blog posts:", error);
+    return [];
+  }
 }

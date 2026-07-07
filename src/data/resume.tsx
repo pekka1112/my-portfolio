@@ -1,5 +1,8 @@
 import { Icons } from "@/components/icons";
-import { GraduationCap, HomeIcon, NotebookIcon } from "lucide-react";
+import { GraduationCap, HomeIcon, NotebookIcon, Phone, Facebook} from "lucide-react";
+import { FaFacebook,  } from "react-icons/fa";
+import { PiReadCvLogo } from "react-icons/pi";
+import { IoDocumentText } from "react-icons/io5";
 
 
 export const DATA = {
@@ -11,31 +14,38 @@ export const DATA = {
   description:
     "Hello, my full name is 𝑵𝒈𝒖𝒚𝒆𝒏 𝑫𝒐 𝑻𝒉𝒂𝒏𝒉 𝑷𝒉𝒂𝒕. I am a Intern Java Backend Developer with a strong interest in building scalable backend systems. I am eager to join a professional working environment where I can contribute my skills, learn from real-world projects.",
   summary:
-    "After graduating from high school in 2021, I enrolled in the [Information Technology program at Nong Lam University](/#education). During 2022 and 2023, I worked hard to complete many courses and build a strong foundation in programming. Now in 2025, I am a final-year student, looking for an internship opportunity at a technology company where I can apply my knowledge, gain real-world experience, and grow as a backend developer.",
-    // "At the end of 2022, I quit my job as a software engineer to go fulltime into building and scaling my own SaaS businesses. In the past, [I pursued a double degree in computer science and business](/#education), [interned at big tech companies in Silicon Valley](https://www.youtube.com/watch?v=d-LJ2e5qKdE), and [competed in over 21 hackathons for fun](/#hackathons). I also had the pleasure of being a part of the first ever in-person cohort of buildspace called [buildspace sf1](https://buildspace.so/sf1).",
+    "After enrolling in the [Information Technology program at Nong Lam University](/#education) in 2021, I dedicated my early university years to building a strong foundation in programming and completing core coursework. Now in 2026, as a recent [graduate](/events), I am seeking a [Fresher or Junior Backend Developer](/#work) position at a technology company where I can apply my knowledge, gain hands-on experience, and actively grow my technical skillset.",
   avatarUrl: "/me.jpg",
   skills: [
-    "Java",
-    "JSP / Servlet",
-    "Spring Boot",
-    "Spring Security",
-    "Spring Data JPA",
-    "MySQL",
-    "Hibernate",
-    "Javascript",
-    "React",
-    "Next.js",
-    "Typescript",
-    "Node.js",
+    // languages
+    "Java Core",
+    "C#",
     "Python",
+    "Javascript / TypeScript",
+    "React JS",
+    "Next JS / Nuxt JS",
+    "Node JS",
+    // frameworks and libraries
+    "Spring Boot",
+    "Spring Security / JWT / OAuth2",
+    "Spring Data JPA / Spring Data REST",
+    "MySQL / PostgreSQL",
+    "Redis",
+    "Hibernate",
+    "RESTful API",
+    "WebSocket / Socket.IO",
+    // tools and platforms
     "Docker",
     "Github",
-    "C#",
+    "Trello",
+    "Claude AI",
+    // AI and Machine Learning
+    "Machine Learning", "Computer Vision",
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
+    { href: "/cv", icon: PiReadCvLogo, label: "My CV" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
-    { href: "/events", icon: GraduationCap, label: "Events" },
   ],
   contact: {
     email: "thanhphat11122003@gmail.com",
@@ -66,19 +76,25 @@ export const DATA = {
         name: "Youtube",
         url: "https://www.youtube.com/@pzone1203",
         icon: Icons.youtube,
-        navbar: true,
+        navbar: false,
       },
       Facebook: {
         name: "Facebook",
         url: "https://www.facebook.com/phatthanh2016/",
-        icon: Icons.facebook,
+        icon: FaFacebook,
         navbar: true,
       },
-      Email: {
+      Phone: {
+        name: "Call Me",
+        url: "tel:+84898209422",
+        icon: Phone,
+        navbar: true,
+      },
+       Email: {
         name: "Send Email",
         url: "https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZZQFftxfdWJHFclkFLQlhcBfmvFjGPlTJTMzdThRhgJmsrKGNPgSQFNghDFbRttNdZRgq",
         icon: Icons.email,
-        navbar: true,
+        navbar: false,
       },
     },
   },
@@ -88,37 +104,41 @@ export const DATA = {
       company: "NLU",
       href: "#",
       location: "#",
-      title: "Student",
+      title: "Student - All project at school",
       logoUrl: "/nlu.png",
       start: "September 2021",
-      end: "Now",
+      end: "October 2025",
       description:
-        "Studying at Nong Lam University, I have participated in many IT projects at school but have no practical experience yet. []",
+        "Studying at Nong Lam University, I have participated in many IT projects at school but have no practical experience yet.",
     },
-    // {
-    //   company: "Shopify",
-    //   badges: [],
-    //   href: "https://shopify.com",
-    //   location: "Remote",
-    //   title: "Software Engineer",
-    //   logoUrl: "/shopify.svg",
-    //   start: "January 2021",
-    //   end: "April 2021",
-    //   description:
-    //     "Implemented a custom Kubernetes controller in Go to automate the deployment of MySQL and ProxySQL custom resources in order to enable 2,000+ internal developers to instantly deploy their app databases to production. Wrote several scripts in Go to automate MySQL database failovers while maintaining master-slave replication topologies and keeping Zookeeper nodes consistent with changes.",
-    // },
-    // {
-    //   company: "Nvidia",
-    //   href: "https://nvidia.com/",
-    //   badges: [],
-    //   location: "Santa Clara, CA",
-    //   title: "Software Engineer",
-    //   logoUrl: "/nvidia.png",
-    //   start: "January 2020",
-    //   end: "April 2020",
-    //   description:
-    //     "Architected and wrote the entire MVP of the GeForce Now Cloud Gaming internal admin and A/B testing dashboard using React, Redux, TypeScript, and Python.",
-    // },
+    {
+      company: "VNPT Corp.",
+      badges: [],
+      href: "https://vnpt.vn/",
+      location: "On site, Ho Chi Minh City, Vietnam",
+      title: "Java Developer Intern - On site, Ho Chi Minh City",
+      logoUrl: "./work/vnpt.jpg",
+      start: "May 2025",
+      end: "September 2025",
+      description:
+  "Review and master the system's backend logic.\n" +
+  "Implement CRUD APIs for the profile module, including retrieving detailed records, fetching lists, searching, and updating profiles.\n" +
+  "Implement the system's information intake workflow: receiving data from employees, scanning documents, uploading to the system, getting managerial approval, updating the profile status to \"Approved\". ",
+    },
+    {
+      company: "Tin Hoc Dai Duong - Education Center",
+      href: "https://tinhocdaiduong.vn/",
+      badges: ["IC3 Teacher", "Computer Science Researcher"],
+      location: "76 đường 13, Khu nhà ở Vạn Phúc 1, Phường Hiệp Bình, TP.HCM",
+      title: "IC3 Teacher",
+      logoUrl: "./work/thdd.jpg",
+      start: "October 2025",
+      end: "January 2026",
+      description:
+        "Continuously improving IC3 skill sets and essential office software proficiency. "
+ + "Teach IC3 courses and basic office computing to students at schools and training centers."
+ + "Conduct research on computer science, emerging technologies, cybersecurity, and Artificial Intelligence (AI).",
+    },
     // {
     //   company: "Splunk",
     //   href: "https://splunk.com",
@@ -156,6 +176,7 @@ export const DATA = {
     //     "Designed and implemented a robust password encryption and browser cookie storage system in Ruby on Rails. Leveraged the Yahoo finance API to develop the dividend.com equity screener",
     // },
   ],
+
   education: [
     {
       school: "So 1 Binh Nghi Primary School",
@@ -191,108 +212,120 @@ export const DATA = {
     },
   ],
   projects: [
+    // piBook - Ecomerce Website Project
     {
-      title: "ModKey - Ecomerce Website",
+      title: "piBook - Ecomerce Website",
       href: "#",
-      dates: "May 2025 - Now",
+      dates: "July 2026 - Now",
       active: true,
       description:
-        "With the increasing interest of users in customizing keyboard products according to their needs, I have created a website that allows users to easily customize keys according to their preferences, features and needs.",
+        "A Full-Stack e-commerce web application developed to provide a seamless online book-shopping experience. The system features a responsive and intuitive user interface integrated with a robust and secure backend architecture to handle user authentication, product cataloging, and order processing efficiently.",
       technologies: [
         "Spring Boot",
         "Spring JPA",
         "MySQL",
         "JWT",
         "React JS",
-        "Tailwind CSS",
+        "TailwindCSS",
         "Hibernate",
         "RESTFul API",
       ],
       links: [
         {
-          type: "Go to Website",
+          type: "Website",
           href: "#",
           icon: <Icons.globe className="size-3" />,
         },
         {
           type: "Front End",
-          href: "https://github.com/pekka1112/modkey-frontend",
+          href: "https://github.com/pekka1112/pibookstore_frontend",
           icon: <Icons.github className="size-3" />,
         },
         {
           type: "Back End",
-          href: "https://github.com/pekka1112/modkey-backend",
+          href: "https://github.com/pekka1112/pibookstore_backend",
           icon: <Icons.github className="size-3" />,
         },
+        {
+          type: "Documentation Ref",
+          href: "#",
+          icon: <IoDocumentText className="size-3"></IoDocumentText>,
+        }
       ],
-      image: "/modkey.png",
+      image: "/project/piBook.png",
       video:
         "",
     },
+
     {
-      title: "PiNet - Social Website",
+      title: "Smart Parking System - Admin Dashboard",
       href: "#",
-      dates: "May 2025 - Now",
+      dates: "April 2026 - May 2026",
       active: true,
       description:
-        "Developing ...",
+        "A Smart Parking System Admin Dashboard is a web-based application designed to manage and monitor parking facilities efficiently. It provides real-time data on parking space availability, vehicle entry and exit, and payment processing. The dashboard offers an intuitive interface for administrators to oversee operations, generate reports, and optimize parking management through data-driven insights.",
       technologies: [
-        // "Next.js",
-        // "Typescript",
-        // "PostgreSQL",
-        // "Prisma",
-        // "TailwindCSS",
-        // "Stripe",
-        // "Shadcn UI",
-        // "Magic UI",
+        "Spring Boot",
+        "Spring JPA",
+        "MySQL",
+        "Python",
+        "React JS",
+        "FastAPI",
+        "Hibernate",
+        "RESTFul API",
       ],
       links: [
-        // {
-        //   type: "Website",
-        //   href: "#",
-        //   icon: <Icons.globe className="size-3" />,
-        // },
-        // {
-        //   type: "Source",
-        //   href: "https://github.com/magicuidesign/magicui",
-        //   icon: <Icons.github className="size-3" />,
-        // },
+        {
+          type: "Website",
+          href: "#",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "Source FE",
+          href: "https://github.com/magicuidesign/magicui",
+          icon: <Icons.github className="size-3" />,
+        },
+        {
+          type: "Source BE",
+          href: "https://github.com/magicuidesign/magicui",
+          icon: <Icons.github className="size-3" />,
+        },
+        {
+          type: "Documentation Ref",
+          href: "#",
+          icon: <IoDocumentText className="size-3"></IoDocumentText>,
+        }
       ],
-      image: "",
-      video: "https://videos.pexels.com/video-files/5377684/5377684-uhd_2560_1440_25fps.mp4",
+      image: "/project/sps-iot.jpg",
+      video: "",
     },
     {
-      title: "PiPic - Image Process Online Website",
+      title: "PiEncryp - File Encryption and Decryption System",
       href: "#",
-      dates: "Not Started",
+      dates: "March 2026 - April 2026",
       active: true,
       description:
-        "Developing ...",
+        "PiEncryp is a secure file encryption and decryption system designed to protect sensitive data. It utilizes advanced cryptographic algorithms to ensure that files are encrypted before storage or transmission, making them inaccessible to unauthorized users. The system provides a user-friendly interface for encrypting and decrypting files, allowing users to safeguard their information with ease.",
       technologies: [
-        // "Next.js",
-        // "Typescript",
-        // "PostgreSQL",
-        // "Prisma",
-        // "TailwindCSS",
-        // "Shadcn UI",
-        // "Magic UI",
-        // "Stripe",
-        // "Cloudflare Workers",
+        "Java Core",
+        "Java Swing",
+        "Maven",
+        "Bouncy Castle"
       ],
       links: [
-        // {
-        //   type: "Website",
-        //   href: "https://llm.report",
-        //   icon: <Icons.globe className="size-3" />,
-        // },
-        // {
-        //   type: "Source",
-        //   href: "https://github.com/dillionverma/llm.report",
-        //   icon: <Icons.github className="size-3" />,
-        // },
+        {
+          type: "Website",
+          href: "https://llm.report",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "Source",
+          href: "https://github.com/pekka1112/information-system-security",
+          icon: <Icons.github className="size-3" />,
+        },
       ],
-      image: "",
-      video: "https://videos.pexels.com/video-files/5377684/5377684-uhd_2560_1440_25fps.mp4",
+      image: "/project/piEnc.png",
+      video: "",
     },
     {
       title: "PPL Bank - Banking Online Website / Mobile App",

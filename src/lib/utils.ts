@@ -5,6 +5,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function calculateReadingTime(html: string): number {
+  const plainText = html.replace(/<[^>]*>/g, "");
+  const wordCount = plainText.trim().split(/\s+/).length;
+  const readingTimeMinutes = Math.ceil(wordCount / 200);
+  return Math.max(1, readingTimeMinutes);
+}
+
 export function formatDate(date: string) {
   let currentDate = new Date().getTime();
   if (!date.includes("T")) {

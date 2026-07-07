@@ -13,7 +13,7 @@ export default function AdPopup() {
         <Image
           src="/graduation.png"
           alt="Advertisement"
-          width={500}      // ✅ Bắt buộc phải có
+          width={300}      // ✅ Bắt buộc phải có
           height={300}     // ✅ Bắt buộc phải có
           priority         // (tùy chọn) giúp load sớm hơn nếu ảnh quan trọng
           className="rounded-lg" // nếu bạn có className
